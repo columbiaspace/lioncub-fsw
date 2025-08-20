@@ -8,9 +8,6 @@ This is a reference software implementation for the [Proves Kit](https://docs.pr
 
 ## Installation
 
-> [!TIP]
-> Always source the virtual environment when building by running `. fprime-venv/bin/activate` in the `proves-core-reference` directory,
-
 First, clone the Proves Core Reference repository and ensure all submodules are properly checked-out. 
 
 ```
@@ -21,6 +18,9 @@ By using `fprime-bootstrap` the following several tasks are accomplished:
 
 - The repository and submodules are cloned
 -  A virtual environment is created and depenencies are installed
+
+> [!TIP]
+> Always source the virtual environment when building by running `. fprime-venv/bin/activate` in the `proves-core-reference` directory,
 
 Next update Zephyr modules.  This will take a long time.
 
