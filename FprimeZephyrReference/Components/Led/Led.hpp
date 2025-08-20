@@ -25,13 +25,6 @@ class Led : public LedComponentBase {
     ~Led();
 
     private :
-        //! Emit parameter updated EVR
-        //!
-        void
-        parameterUpdated(FwPrmIdType id  //!< The parameter ID
-                         ) override;
-
-    private :
 
         // ----------------------------------------------------------------------
         // Handler implementations for user-defined typed input ports
@@ -58,6 +51,15 @@ class Led : public LedComponentBase {
                                    U32 cmdSeq,           //!< The command sequence number
                                    Fw::On onOff          //!< Indicates whether the blinking should be on or off
                                    ) override;
+         
+        //! Handler implementation for command SET_BLINK_INTERVAL
+        //!
+        //! Command to set the LED blink interval
+        void
+        SET_BLINK_INTERVAL_cmdHandler(FwOpcodeType opCode,  //!< The opcode
+                                      U32 cmdSeq,           //!< The command sequence number
+                                      U32 interval          //!< Blink interval in rate group ticks
+                                      ) override;
 
     Fw::On m_state = Fw::On::OFF;  //! Keeps track if LED is on or off
     U64 m_transitions = 0;         //! The number of on/off transitions that have occurred
@@ -65,6 +67,7 @@ class Led : public LedComponentBase {
     U32 m_toggleCounter = 0;       //! Keeps track of how many ticks the LED has been on for
     bool m_blinking = false;       //! Flag: if true then LED blinking will occur else
                                    //! no blinking will happen
+    U32 m_blinkInterval = 10;      //! Blink interval in rate group ticks (FIX FOR ZEPHYR)
 };
 
 }  // namespace Components

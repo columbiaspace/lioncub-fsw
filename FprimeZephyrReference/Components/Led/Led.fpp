@@ -7,6 +7,11 @@ module Components {
                 onOff: Fw.On @< Indicates whether the blinking should be on or off
         )
 
+        @ Command to set the LED blink interval
+        async command SET_BLINK_INTERVAL(
+                interval: U32 @< Blink interval in rate group ticks
+        )
+
         @ Telemetry channel to report blinking state.
         telemetry BlinkingState: Fw.On
 
@@ -27,9 +32,6 @@ module Components {
         event BlinkIntervalSet(interval: U32) \
             severity activity high \
             format "LED blink interval set to {}"
-
-        @ Blinking interval in rate group ticks
-        param BLINK_INTERVAL: U32 default 1
 
         @ Port receiving calls from the rate group
         async input port run: Svc.Sched
@@ -60,12 +62,6 @@ module Components {
 
         @ Port for sending telemetry channels to downlink
         telemetry port tlmOut
-
-        @ Port to return the value of a parameter
-        param get port prmGetOut
-
-        @Port to set the value of a parameter
-        param set port prmSetOut
 
     }
 }
