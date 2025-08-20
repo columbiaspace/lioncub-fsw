@@ -55,7 +55,7 @@ git submodule update --init --recursive
 
 ## Running the code
 
-Run generate from the `proves-core-reference` directory. This generates the build cache for FPrime. When you regenerate, append a -f, this will purge the previous deployment. You only need to do generate if something in the core FPrime package has changes
+Run generate from the `proves-core-reference` directory. This generates the build cache for FPrime. When you regenerate, append a -f, this will purge the previous deployment. You only need to do generate if something in the core FPrime package has changed
 ```
 fprime-util generate
 ```
@@ -74,7 +74,7 @@ ls -lah /Volumes
 ```
 
 For Windows:
-Check the letter said to be the mount (ex /d/) 
+Check the letter said to be the mount (ex /d/) and then the name of the removable drive (ex /d/RP2350)
 
 For Linux:
 ```
