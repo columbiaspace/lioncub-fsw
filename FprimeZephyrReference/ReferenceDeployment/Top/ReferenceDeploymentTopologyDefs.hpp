@@ -22,6 +22,9 @@
 
 // Include autocoded FPP constants
 #include "FprimeZephyrReference/ReferenceDeployment/Top/FppConstantsAc.hpp"
+
+#include <zephyr/kernel.h>
+#include <zephyr/device.h>
 #include <zephyr/drivers/uart.h>
 
 
