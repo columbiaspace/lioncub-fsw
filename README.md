@@ -49,7 +49,7 @@ west sdk install
 
 ## Running the code
 
-if its the first time or you are updating and adding components and ports, run generate from the `proves-core-reference` directory. When you regenerate append a -f, this will purge the previous deployment
+Run generate from the `proves-core-reference` directory. This generates the build cache for FPrime. When you regenerate, append a -f, this will purge the previous deployment. You only need to do generate if something in the core FPrime package has changes
 ```
 fprime-util generate
 ```
@@ -60,16 +60,15 @@ Then, and everytime you change code, run
 fprime-util build
 ```
 
-Next, plug in your board! You want to find the location of the board on your computer. It should be called something like RP2350 but you want to find the path to to
+Next, plug in your board! You want to find the location of the board on your computer. It should be called something like RP2350 but you want to find the path to it
 
 For Mac:
 ```
 ls -lah /Volumes
 ```
 
-
 For Windows:
-Check the letter said to be the mount (ex D) 
+Check the letter said to be the mount (ex /d/) 
 
 For Linux:
 ```
