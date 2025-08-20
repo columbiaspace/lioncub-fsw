@@ -89,6 +89,6 @@ cp build-fprime-automatic-zephyr/zephyr/zephyr.uf2 [path-to-your-board]
 
 Finally, run the fprime-gds.  
 ```
-fprime-gds -n --dictionary ./build-fprime-automatic-zephyr/FPrimeZephyrReference/ReferenceDeployment/Top/ReferenceDeploymentTopologyDictionary.json --communication-selection uart --uart-baud 115200 --output-unframed-data
+fprime-gds -n --dictionary ./build-artifacts/zephyr/fprime-zephyr-deployment/dict/ReferenceDeploymentTopologyDictionary.json --communication-selection uart --uart-baud 115200 --output-unframed-data
 ```
 
