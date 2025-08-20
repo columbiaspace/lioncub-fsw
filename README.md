@@ -81,8 +81,8 @@ Now you want to copy the code from the deployment we just made. Before you run t
 cp build-fprime-automatic-zephyr/zephyr/zephyr.uf2 [path-to-your-board]
 ```
 
-Finally, run the fprime-gds. You dont have to start and trop it everytime you 
+Finally, run the fprime-gds.  
 ```
-fprime-gds -n -–dictionary ./build-fprime-automatic-zephyr/FPrimeZephyrReference/ReferenceDeployment/Top/ReferenceDeploymentTopologyDictionary.json -–communication-selection uart –-uart-baud 115200
+fprime-gds -n --dictionary ./build-fprime-automatic-zephyr/FPrimeZephyrReference/ReferenceDeployment/Top/ReferenceDeploymentTopologyDictionary.json --communication-selection uart --uart-baud 115200 --output-unframed-data
 ```
 
