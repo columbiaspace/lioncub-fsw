@@ -28,6 +28,7 @@ module ReferenceDeployment {
     instance comDriver
     instance gpioDriver
     instance led
+    instance prmDb
 
   # ----------------------------------------------------------------------
   # Pattern graph specifiers
@@ -39,6 +40,7 @@ module ReferenceDeployment {
     health connections instance CdhCore.$health
     time connections instance chronoTime
     telemetry connections instance CdhCore.tlmSend
+    param connections instance prmDb
 
   # ----------------------------------------------------------------------
   # Telemetry packets (only used when TlmPacketizer is used)
