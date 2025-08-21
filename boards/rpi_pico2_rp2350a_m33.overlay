@@ -9,3 +9,9 @@
         zephyr,console = &cdc_acm_uart0;
     };
 };
+
+/* Override the default LED definition to use GPIO 24 instead of GPIO 25 for PROVES FC board*/
+&led0 {
+    gpios = <&gpio0 24 GPIO_ACTIVE_HIGH>;
+    label = "User LED GPIO24";
+};
