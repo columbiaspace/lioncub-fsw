@@ -8,62 +8,30 @@ This is a reference software implementation for the [Proves Kit](https://docs.pr
 
 ## Installation
 
-First, clone the Proves Core Reference repository and ensure all submodules are properly checked-out. 
+First, clone the Proves Core Reference repository.
 
-```
-fprime-bootstrap clone https://github.com/Open-Source-Space-Foundation/proves-core-reference
-```
-
-By using `fprime-bootstrap` the following several tasks are accomplished:
-
-- The repository and submodules are cloned
--  A virtual environment is created and depenencies are installed
-
-> [!TIP]
-> Always source the virtual environment when building by running `. fprime-venv/bin/activate` in the `proves-core-reference` directory,
-
-Next update Zephyr modules.  This will take a long time.
-
-```
-cd proves-core-reference/lib/zephyr-workspace
-west update
+```shell
+git clone https://github.com/Open-Source-Space-Foundation/proves-core-reference
 ```
 
-Export a Zephyr CMake package. This allows CMake to automatically load boilerplate code required for building Zephyr applications.
+Next, navigate to the `proves-core-reference` directory and run `make` to set up the project.
 
-```
-west zephyr-export
-```
-
-The Zephyr west extension command, west packages can be used to install Python dependencies.
-
-```
-west packages pip --install
-```
-
-Finally, install the Zephyr SDK.
-
-```
-west sdk install
-```
-
-Finally, everytime you pull a new version of code, run this
-
-```
-git submodule update --init --recursive
+```shell
+cd proves-core-reference
+make
 ```
 
 ## Running the code
 
-Run generate from the `proves-core-reference` directory. This generates the build cache for FPrime. When you regenerate, append a -f, this will purge the previous deployment. You only need to do generate if something in the core FPrime package has changed
+Run generate from the `proves-core-reference` directory. This generates the build cache for FPrime. You only need to do generate if something in the core FPrime package has changed
 ```
-fprime-util generate
+make generate
 ```
 
 Then, and everytime you change code, run
 
 ```
-fprime-util build
+make build
 ```
 
 Next, plug in your board! You want to find the location of the board on your computer. It should be called something like RP2350 but you want to find the path to it
@@ -81,14 +49,12 @@ For Linux:
 findmnt
 ```
 
-
 Now you want to copy the code from the deployment we just made. Before you run this command you have to make this board writable by pressing the two buttons in succesion 
 ```
-cp build-fprime-automatic-zephyr/zephyr/zephyr.uf2 [path-to-your-board]
+make install BOARD_DIR=[path-to-your-board]
 ```
 
 Finally, run the fprime-gds.  
 ```
-fprime-gds -n --dictionary ./build-artifacts/zephyr/fprime-zephyr-deployment/dict/ReferenceDeploymentTopologyDictionary.json --communication-selection uart --uart-baud 115200 --output-unframed-data
+make gds
 ```
-
