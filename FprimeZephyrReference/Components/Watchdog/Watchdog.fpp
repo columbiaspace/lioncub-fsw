@@ -2,6 +2,10 @@ module Components {
     @ Component to blink an LED as a watchdog petter, driven by a rate group
     passive component Watchdog {
 
+        @ Command to stop the watchdog petter
+        sync command STOP_WATCHDOG(
+        )
+
         @ Telemetry channel to report watchdog petter state.
         telemetry WatchdogState: Fw.On
 

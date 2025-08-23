@@ -1,6 +1,6 @@
 // ======================================================================
 // \title  Watchdog.cpp
-// \author ortega
+// \author moisesmata
 // \brief  cpp file for Watchdog component implementation class
 // ======================================================================
 
@@ -46,5 +46,13 @@ void Watchdog ::stop_handler(FwIndexType portNum) {
 // ----------------------------------------------------------------------
 // Handler implementations for commands
 // ----------------------------------------------------------------------
+
+void Watchdog ::STOP_WATCHDOG_cmdHandler(FwOpcodeType opCode, U32 cmdSeq) {
+    // Set the stop flag to stop watchdog petting
+    this->m_stopRequested = true;
+
+    // Provide command response
+    this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
+}
 
 }  // namespace Components

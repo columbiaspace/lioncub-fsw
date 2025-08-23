@@ -1,6 +1,6 @@
 // ======================================================================
 // \title  Watchdog.hpp
-// \author ortega
+// \author moisesmata 
 // \brief  hpp file for Watchdog component implementation class
 // ======================================================================
 
@@ -49,6 +49,8 @@ class Watchdog : public WatchdogComponentBase {
         // ----------------------------------------------------------------------
         // Handler implementations for commands
         // ----------------------------------------------------------------------
+
+        void STOP_WATCHDOG_cmdHandler(FwOpcodeType opCode, U32 cmdSeq) override;
 
 
 
