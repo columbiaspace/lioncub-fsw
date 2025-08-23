@@ -27,7 +27,7 @@ module ReferenceDeployment {
     instance timer
     instance comDriver
     instance gpioDriver
-    instance led
+    instance watchdog
     instance prmDb
 
   # ----------------------------------------------------------------------
@@ -91,13 +91,11 @@ module ReferenceDeployment {
       rateGroup1Hz.RateGroupMemberOut[1] -> CdhCore.$health.Run
       rateGroup1Hz.RateGroupMemberOut[2] -> ComCcsds.commsBufferManager.schedIn
       rateGroup1Hz.RateGroupMemberOut[3] -> CdhCore.tlmSend.Run
+      rateGroup1Hz.RateGroupMemberOut[4] -> watchdog.run
     }
 
-    connections LedBlinker {
-      # Rate Group 1 (1Hz cycle) ouput is connected to led's run input
-      rateGroup1Hz.RateGroupMemberOut[4] -> led.run
-      # led's gpioSet output is connected to gpioDriver's gpioWrite input
-      led.gpioSet -> gpioDriver.gpioWrite
+    connections Watchdog {
+      watchdog.gpioSet -> gpioDriver.gpioWrite
     }
 
     connections ReferenceDeployment {

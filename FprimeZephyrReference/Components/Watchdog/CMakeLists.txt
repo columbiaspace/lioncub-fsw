@@ -16,9 +16,9 @@
 
 register_fprime_library(
     AUTOCODER_INPUTS
-        "${CMAKE_CURRENT_LIST_DIR}/Led.fpp"
+        "${CMAKE_CURRENT_LIST_DIR}/Watchdog.fpp"
     SOURCES
-        "${CMAKE_CURRENT_LIST_DIR}/Led.cpp"
+        "${CMAKE_CURRENT_LIST_DIR}/Watchdog.cpp"
 #   DEPENDS
 #       MyPackage_MyOtherModule
 )

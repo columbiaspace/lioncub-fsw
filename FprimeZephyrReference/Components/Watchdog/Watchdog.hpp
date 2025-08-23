@@ -1,28 +1,28 @@
 // ======================================================================
-// \title  Led.hpp
+// \title  Watchdog.hpp
 // \author ortega
-// \brief  hpp file for Led component implementation class
+// \brief  hpp file for Watchdog component implementation class
 // ======================================================================
 
-#ifndef Components_Led_HPP
-#define Components_Led_HPP
+#ifndef Components_Watchdog_HPP
+#define Components_Watchdog_HPP
 
-#include "FprimeZephyrReference/Components/Led/LedComponentAc.hpp"
+#include "FprimeZephyrReference/Components/Watchdog/WatchdogComponentAc.hpp"
 
 namespace Components {
 
-class Led : public LedComponentBase {
+class Watchdog : public WatchdogComponentBase {
   public:
     // ----------------------------------------------------------------------
     // Component construction and destruction
     // ----------------------------------------------------------------------
 
-    //! Construct Led object
-    Led(const char* const compName  //!< The component name
+    //! Construct Watchdog object
+    Watchdog(const char* const compName  //!< The component name
     );
 
-    //! Destroy Led object
-    ~Led();
+    //! Destroy Watchdog object
+    ~Watchdog();
 
     private :
         //! Emit parameter updated EVR
@@ -42,6 +42,12 @@ class Led : public LedComponentBase {
         run_handler(FwIndexType portNum,  //!< The port number
                     U32 context  //!< The call order
                     ) override;
+
+        //! Handler implementation for stop
+        //!
+        //! Port to stop the watchdog petting
+        void
+        stop_handler(FwIndexType portNum) override;
 
     private :
         // ----------------------------------------------------------------------
@@ -63,6 +69,7 @@ class Led : public LedComponentBase {
     U32 m_toggleCounter = 0;       //! Keeps track of how many ticks the LED has been on for
     bool m_blinking = false;       //! Flag: if true then LED blinking will occur else
                                    //! no blinking will happen
+    bool m_stopRequested = false;  //! Flag to stop the watchdog petting
 };
 
 }  // namespace Components

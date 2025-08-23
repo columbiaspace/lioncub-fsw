@@ -1,10 +1,10 @@
 // ======================================================================
-// \title  Led.cpp
+// \title  Watchdog.cpp
 // \author ortega
-// \brief  cpp file for Led component implementation class
+// \brief  cpp file for Watchdog component implementation class
 // ======================================================================
 
-#include "FprimeZephyrReference/Components/Led/Led.hpp"
+#include "FprimeZephyrReference/Components/Watchdog/Watchdog.hpp"
 #include "config/FpConfig.hpp"
 
 namespace Components {
@@ -13,11 +13,11 @@ namespace Components {
 // Component construction and destruction
 // ----------------------------------------------------------------------
 
-Led ::Led(const char* const compName) : LedComponentBase(compName) {}
+Watchdog ::Watchdog(const char* const compName) : WatchdogComponentBase(compName) {}
 
-Led ::~Led() {}
+Watchdog ::~Watchdog() {}
 
-void Led ::parameterUpdated(FwPrmIdType id) {
+void Watchdog ::parameterUpdated(FwPrmIdType id) {
     Fw::ParamValid isValid = Fw::ParamValid::INVALID;
     switch (id) {
         case PARAMID_BLINK_INTERVAL: {
@@ -40,15 +40,15 @@ void Led ::parameterUpdated(FwPrmIdType id) {
 // Handler implementations for user-defined typed input ports
 // ----------------------------------------------------------------------
 
-void Led ::run_handler(FwIndexType portNum, U32 context) {
+void Watchdog ::run_handler(FwIndexType portNum, U32 context) {
     // Read back the parameter value
     Fw::ParamValid isValid = Fw::ParamValid::INVALID;
     U32 interval = this->paramGet_BLINK_INTERVAL(isValid);
     FW_ASSERT((isValid != Fw::ParamValid::INVALID) && (isValid != Fw::ParamValid::UNINIT),
               static_cast<FwAssertArgType>(isValid));
 
-    // Only perform actions when set to blinking
-    if (this->m_blinking && (interval != 0)) {
+    // Only perform actions when set to blinking and stop not requested
+    if (this->m_blinking && (interval != 0) && !this->m_stopRequested) {
         // If toggling state
         if (this->m_toggleCounter == 0) {
             // Toggle state
@@ -80,11 +80,16 @@ void Led ::run_handler(FwIndexType portNum, U32 context) {
     }
 }
 
+void Watchdog ::stop_handler(FwIndexType portNum) {
+    // Set the stop flag to stop watchdog petting
+    this->m_stopRequested = true;
+}
+
 // ----------------------------------------------------------------------
 // Handler implementations for commands
 // ----------------------------------------------------------------------
 
-void Led ::BLINKING_ON_OFF_cmdHandler(FwOpcodeType opCode, U32 cmdSeq, Fw::On onOff) {
+void Watchdog ::BLINKING_ON_OFF_cmdHandler(FwOpcodeType opCode, U32 cmdSeq, Fw::On onOff) {
     this->m_toggleCounter = 0;               // Reset count on any successful command
     this->m_blinking = Fw::On::ON == onOff;  // Update blinking state
 

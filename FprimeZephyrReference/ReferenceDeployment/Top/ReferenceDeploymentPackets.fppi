@@ -31,8 +31,8 @@ telemetry packets ReferenceDeploymentPackets {
   }
 
   packet Led id 5 group 4 {
-    ReferenceDeployment.led.LedTransitions
-    ReferenceDeployment.led.BlinkingState
+    ReferenceDeployment.watchdog.LedTransitions
+    ReferenceDeployment.watchdog.BlinkingState
   }
 
 
