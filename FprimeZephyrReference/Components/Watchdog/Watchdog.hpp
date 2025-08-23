@@ -8,6 +8,9 @@
 #define Components_Watchdog_HPP
 
 #include "FprimeZephyrReference/Components/Watchdog/WatchdogComponentAc.hpp"
+// Need to explicitly include because Fw.On is no longer a tlm channel I believe
+#include "Fw/Types/OnEnumAc.hpp"
+#include <atomic>
 
 namespace Components {
 
@@ -50,18 +53,13 @@ class Watchdog : public WatchdogComponentBase {
         // Handler implementations for commands
         // ----------------------------------------------------------------------
 
-        // test prefix
-        void STOP_WATCHDOG_cmdHandler(FwOpcodeType opCode, U32 cmdSeq) override;
+        void TEST_STOP_WATCHDOG_cmdHandler(FwOpcodeType opCode, U32 cmdSeq) override;
 
 
-
-    Fw::On m_state = Fw::On::OFF;  //! Keeps track if LED is on or off
-    //U32
-    U64 m_transitions = 0;         //! The number of on/off transitions that have occurred
-                                   //! from FSW boot up
-
-    // this should be an atomic (std::atomic)
-    bool m_stopRequested = false;  //! Flag to stop the watchdog petting
+    std::atomic_bool m_stopRequested{false};  //! Flag to stop the watchdog petting
+    Fw::On m_state = Fw::On::OFF;               //! Keeps track of GPIO state
+    U32 m_transitions = 0;                      //! The number of on/off transitions that have occurred
+                                                //! from FSW boot up
 };
 
 }  // namespace Components

@@ -3,27 +3,16 @@ module Components {
     passive component Watchdog {
 
         @ Command to stop the watchdog petter
-        sync command STOP_WATCHDOG(
+        sync command TEST_STOP_WATCHDOG(
         )
 
-        # get rid
-        @ Telemetry channel to report watchdog petter state.
-        telemetry WatchdogState: Fw.On
-
-        # keep but make it U32
         @ Telemetry channel counting watchdog petter transitions
-        telemetry WatchdogTransitions: U64
-
-        # get rid of all events except the stop watchdog event
-        @ Reports the state we set for the watchdog petter.
-        event SetWatchdogState($state: Fw.On) \
-            severity activity high \
-            format "Set watchdog state to {}."
+        telemetry WatchdogTransitions: U32
 
         @ Event logged when the watchdog petter LED turns on or off
-        event WatchdogState(onOff: Fw.On) \
-            severity activity low \
-            format "Watchdog is {}"
+        event WatchdogStop() \
+            severity activity high \
+            format "Watchdog no longer being pet!"
 
         @ Port receiving calls from the rate group
         sync input port run: Svc.Sched

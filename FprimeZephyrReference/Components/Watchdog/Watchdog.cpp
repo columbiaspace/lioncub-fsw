@@ -30,26 +30,23 @@ void Watchdog ::run_handler(FwIndexType portNum, U32 context) {
         this->tlmWrite_WatchdogTransitions(this->m_transitions);
 
         this->gpioSet_out(0, (Fw::On::ON == this->m_state) ? Fw::Logic::HIGH : Fw::Logic::LOW);
-
-        this->log_ACTIVITY_LO_WatchdogState(this->m_state);
     }
 }
 
 void Watchdog ::stop_handler(FwIndexType portNum) {
     // Set the stop flag to stop watchdog petting
     this->m_stopRequested = true;
+    this->log_ACTIVITY_HI_WatchdogStop();
 }
 
 // ----------------------------------------------------------------------
 // Handler implementations for commands
 // ----------------------------------------------------------------------
 
-//test
-void Watchdog ::STOP_WATCHDOG_cmdHandler(FwOpcodeType opCode, U32 cmdSeq) {
-    // Set the stop flag to stop watchdog petting
-    this->m_stopRequested = true;
+void Watchdog ::TEST_STOP_WATCHDOG_cmdHandler(FwOpcodeType opCode, U32 cmdSeq) {
+    // call stop handler
+    this->stop_handler(0);
 
-    //rather, call stop handler here and emit event`
     // Provide command response
     this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
 }

@@ -32,7 +32,6 @@ telemetry packets ReferenceDeploymentPackets {
 
   packet Led id 5 group 4 {
     ReferenceDeployment.watchdog.WatchdogTransitions
-    ReferenceDeployment.watchdog.WatchdogState
   }
 
 
