@@ -25,11 +25,7 @@ class Watchdog : public WatchdogComponentBase {
     ~Watchdog();
 
     private :
-        //! Emit parameter updated EVR
-        //!
-        void
-        parameterUpdated(FwPrmIdType id  //!< The parameter ID
-                         ) override;
+
 
         // ----------------------------------------------------------------------
         // Handler implementations for user-defined typed input ports
@@ -54,21 +50,12 @@ class Watchdog : public WatchdogComponentBase {
         // Handler implementations for commands
         // ----------------------------------------------------------------------
 
-        //! Handler implementation for command BLINKING_ON_OFF
-        //!
-        //! Command to turn on or off the blinking LED
-        void
-        BLINKING_ON_OFF_cmdHandler(FwOpcodeType opCode,  //!< The opcode
-                                   U32 cmdSeq,           //!< The command sequence number
-                                   Fw::On onOff          //!< Indicates whether the blinking should be on or off
-                                   ) override;
+
 
     Fw::On m_state = Fw::On::OFF;  //! Keeps track if LED is on or off
     U64 m_transitions = 0;         //! The number of on/off transitions that have occurred
                                    //! from FSW boot up
     U32 m_toggleCounter = 0;       //! Keeps track of how many ticks the LED has been on for
-    bool m_blinking = false;       //! Flag: if true then LED blinking will occur else
-                                   //! no blinking will happen
     bool m_stopRequested = false;  //! Flag to stop the watchdog petting
 };
 

@@ -2,34 +2,26 @@ module Components {
     @ Component to blink an LED as a watchdog petter, driven by a rate group
     passive component Watchdog {
 
-        @ Command to turn on or off the watchdog petter LED
-        sync command BLINKING_ON_OFF(
-                onOff: Fw.On @< Indicates whether the blinking should be on or off
-        )
-
         @ Telemetry channel to report watchdog petter state.
-        telemetry BlinkingState: Fw.On
+        telemetry WatchdogState: Fw.On
 
         @ Telemetry channel counting watchdog petter transitions
-        telemetry LedTransitions: U64
+        telemetry WatchdogTransitions: U64
 
         @ Reports the state we set for the watchdog petter.
-        event SetBlinkingState($state: Fw.On) \
+        event SetWatchdogState($state: Fw.On) \
             severity activity high \
-            format "Set blinking state to {}."
+            format "Set watchdog state to {}."
 
         @ Event logged when the watchdog petter LED turns on or off
-        event LedState(onOff: Fw.On) \
+        event WatchdogState(onOff: Fw.On) \
             severity activity low \
-            format "LED is {}"
+            format "Watchdog is {}"
 
         @ Event logged when the watchdog petter blink interval is updated
-        event BlinkIntervalSet(interval: U32) \
+        event WatchdogIntervalSet(interval: U32) \
             severity activity high \
-            format "LED blink interval set to {}"
-
-        @ Watchdog petter blinking interval in rate group ticks
-        param BLINK_INTERVAL: U32 default 10
+            format "Watchdog blink interval set to {}"
 
         @ Port receiving calls from the rate group
         sync input port run: Svc.Sched
@@ -63,12 +55,6 @@ module Components {
 
         @ Port for sending telemetry channels to downlink
         telemetry port tlmOut
-
-        @ Port to return the value of a parameter
-        param get port prmGetOut
-
-        @ Port to set the value of a parameter
-        param set port prmSetOut
 
     }
 }
