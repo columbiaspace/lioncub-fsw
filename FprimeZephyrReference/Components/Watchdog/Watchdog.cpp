@@ -21,32 +21,6 @@ Watchdog ::~Watchdog() {}
 // Handler implementations for user-defined typed input ports
 // ----------------------------------------------------------------------
 
-    // If stop requested, turn off LED
-    else {
-        if (this->m_state == Fw::On::ON) {
-            // Port may not be connected, so check before sending output
-            if (this->isConnected_gpioSet_OutputPort(0)) {
-                this->gpioSet_out(0, Fw::Logic::LOW);
-            }
-
-            this->m_state = Fw::On::OFF;
-            this->log_ACTIVITY_LO_WatchdogState(this->m_state);
-        }
-    }
-}
-
-void Watchdog ::stop_handler(FwIndexType portNum) {
-    // Set the stop flag to stop watchdog petting
-    this->m_stopRequested = true;
-}
-
-// ----------------------------------------------------------------------
-// Handler implementations for commands
-// ----------------------------------------------------------------------
-
-
-
-}  // namespace Components
 void Watchdog ::run_handler(FwIndexType portNum, U32 context) {
     // Only perform actions when stop not requested
     if (!this->m_stopRequested) {
@@ -62,3 +36,15 @@ void Watchdog ::run_handler(FwIndexType portNum, U32 context) {
 
         this->log_ACTIVITY_LO_WatchdogState(this->m_state);
     }
+}
+
+void Watchdog ::stop_handler(FwIndexType portNum) {
+    // Set the stop flag to stop watchdog petting
+    this->m_stopRequested = true;
+}
+
+// ----------------------------------------------------------------------
+// Handler implementations for commands
+// ----------------------------------------------------------------------
+
+}  // namespace Components
