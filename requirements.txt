@@ -2,6 +2,7 @@
 # -r https://raw.githubusercontent.com/nasa/fprime/refs/tags/v4.0.0a1/requirements.txt
 -r lib/fprime/requirements.txt
 
+pip
 west
 # Requirements files needed for building Zephyr
 # Zephyr workflow requirements removed due to conflicts with F Prime
