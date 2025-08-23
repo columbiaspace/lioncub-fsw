@@ -55,7 +55,6 @@ class Watchdog : public WatchdogComponentBase {
     Fw::On m_state = Fw::On::OFF;  //! Keeps track if LED is on or off
     U64 m_transitions = 0;         //! The number of on/off transitions that have occurred
                                    //! from FSW boot up
-    U32 m_toggleCounter = 0;       //! Keeps track of how many ticks the LED has been on for
     bool m_stopRequested = false;  //! Flag to stop the watchdog petting
 };
 
