@@ -50,13 +50,17 @@ class Watchdog : public WatchdogComponentBase {
         // Handler implementations for commands
         // ----------------------------------------------------------------------
 
+        // test prefix
         void STOP_WATCHDOG_cmdHandler(FwOpcodeType opCode, U32 cmdSeq) override;
 
 
 
     Fw::On m_state = Fw::On::OFF;  //! Keeps track if LED is on or off
+    //U32
     U64 m_transitions = 0;         //! The number of on/off transitions that have occurred
                                    //! from FSW boot up
+
+    // this should be an atomic (std::atomic)
     bool m_stopRequested = false;  //! Flag to stop the watchdog petting
 };
 
