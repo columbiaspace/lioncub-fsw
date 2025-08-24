@@ -24,20 +24,29 @@ make
 ## Running the code
 
 Run generate from the `proves-core-reference` directory. This generates the build cache for FPrime. You only need to do generate if something in the core FPrime package has changed
-```
+```shell
 make generate
 ```
 
 Then, and everytime you change code, run
 
-```
+```shell
 make build
 ```
 
-Next, plug in your board! You want to find the location of the board on your computer. It should be called something like RP2350 but you want to find the path to it
+### Find the path to your board
+
+Next, plug in your board! If you have previously installed a firmware on your board you may not see it show up as a drive. In that case you'll want to find it's `tty` port.
+
+To do this, run the following command
+```shell
+make list-tty
+```
+
+Otherwise, you want to find the location of the board on your computer. It should be called something like RP2350 but you want to find the path to it
 
 For Mac:
-```
+```shell
 ls -lah /Volumes
 ```
 
@@ -45,16 +54,16 @@ For Windows:
 Check the letter said to be the mount (ex /d/) and then the name of the removable drive (ex /d/RP2350)
 
 For Linux:
-```
+```shell
 findmnt
 ```
 
-Now you want to copy the code from the deployment we just made. Before you run this command you have to make this board writable by pressing the two buttons in succesion 
-```
+Now you want to install the firmware to the board.
+```shell
 make install BOARD_DIR=[path-to-your-board]
 ```
 
 Finally, run the fprime-gds.  
-```
+```shell
 make gds
 ```
