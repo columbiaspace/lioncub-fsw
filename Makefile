@@ -1,7 +1,5 @@
-export VIRTUAL_ENV ?= $(shell pwd)/fprime-venv
-
 .PHONY: all
-all: submodules fprime-venv zephyr-setup generate-skip-if-exists build
+all: submodules fprime-venv zephyr-setup generate-if-needed build
 
 .PHONY: help
 help: ## Display this help.
@@ -14,20 +12,24 @@ submodules: ## Initialize and update git submodules
 	@echo "Initializing and updating git submodules..."
 	git submodule update --init --recursive
 	
-fprime-venv: ## Create a virtual environment
-	@echo "Creating virtual environment..."
-	@$(MAKE) uv
-	@$(UV) venv fprime-venv 
-	@$(UV) pip install --requirement requirements.txt
+export VIRTUAL_ENV ?= $(shell pwd)/fprime-venv
+fprime-venv: uv ## Create a virtual environment
+	@test -s $(VIRTUAL_ENV) || { \
+		echo "Creating virtual environment..."; \
+		$(UV) venv fprime-venv; \
+		$(UV) pip install --requirement requirements.txt; \
+	}
 
 .PHONY: zephyr-setup
-zephyr-setup: ## Set up Zephyr environment
-	@test -s $(lib/zephyr-workspace/tools/edtt/.gitignore) || (echo "Setting up Zephyr environment..." && \
+zephyr-setup: uv ## Set up Zephyr environment
+	@test -s lib/zephyr-workspace/tools/edtt/.gitignore || { \
+		echo "Setting up Zephyr environment..."; \
 		cd lib/zephyr-workspace && \
 			$(UVX) west update && \
 			$(UVX) west zephyr-export && \
 			$(UV) run west packages pip --install && \
-			$(UV) run west sdk install)
+			$(UV) run west sdk install; \
+	}
 
 ##@ Development
 
@@ -37,8 +39,9 @@ generate: fprime-venv zephyr-setup ## Generate FPrime-Zephyr Proves Core Referen
 	$(UV) run fprime-util generate --force
 
 .PHONY: generate-if-needed
+BUILD_DIR ?= $(shell pwd)/build-fprime-automatic-zephyr
 generate-if-needed:
-	@test -s $(build-fprime-automatic-zephyr) || $(MAKE) generate
+	@test -s $(BUILD_DIR) || $(MAKE) generate
 
 .PHONY: build
 build: fprime-venv zephyr-setup $(UF2) ## Build FPrime-Zephyr Proves Core Reference
@@ -51,7 +54,7 @@ list-tty: arduino-cli ## List available TTY ports
 	@$(ARDUINO_CLI) board list | grep "USB" | awk '{print $$1}'
 
 .PHONY: install
-UF2 ?= build-fprime-automatic-zephyr/zephyr/zephyr.uf2
+UF2 ?= $(BUILD_DIR)/zephyr/zephyr.uf2
 install: arduino-cli build ## Install the zephyr firmware onto a connected PROVES Kit, requires BOARD_DIR=[path-to-your-board]
 	@$(ARDUINO_CLI) config init || true
 	@$(ARDUINO_CLI) config add board_manager.additional_urls https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json
