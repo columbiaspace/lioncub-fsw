@@ -35,7 +35,7 @@ module ReferenceDeployment {
     queue size Default.QUEUE_SIZE \
     stack size Default.STACK_SIZE \
     priority 4
-  
+
   instance prmDb: Svc.PrmDb base id 0x10003000 \
     queue size Default.QUEUE_SIZE \
     stack size Default.STACK_SIZE \
