@@ -78,9 +78,10 @@ clean: ## Remove all gitignored files
 ##@ Operations
 
 .PHONY: gds
+ARTIFACT_DIR ?= $(shell pwd)/build-artifacts
 gds: ## Run FPrime GDS
 	@echo "Running FPrime GDS..."
-	@$(UV) run fprime-gds -n --dictionary $(BUILD_DIR)/zephyr/fprime-zephyr-deployment/dict/ReferenceDeploymentTopologyDictionary.json --communication-selection uart --uart-baud 115200 --output-unframed-data
+	@$(UV) run fprime-gds -n --dictionary $(ARTIFACT_DIR)/zephyr/fprime-zephyr-deployment/dict/ReferenceDeploymentTopologyDictionary.json --communication-selection uart --uart-baud 115200 --output-unframed-data
 
 ##@ Build Tools
 BIN_DIR ?= $(shell pwd)/bin
