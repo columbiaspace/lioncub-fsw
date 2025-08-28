@@ -8,14 +8,14 @@ The `Components::Watchdog` component provides the mechanism to "pet" the physica
 
 The requirements for `Components::Watchdog` are as follows:
 
-Requirement | Description | Verification Method
------------ | ----------- | -------------------
-WD-001 | The `Components::Watchdog` component shall activate upon startup. | Unit Test
-WD-002 | The `Components::Watchdog` component shall oscillate the watchdog GPIO pin (24) on/off on each rategroup tick. | Unit Test
-WD-003 | The `Components::Watchdog` component shall provide telemetry for watchdog transition count. | Unit Test
-WD-004 | The `Components::Watchdog` component shall respond to stop signals to halt the watchdog petting. | Unit Test
-WD-005 | The `Components::Watchdog` component shall provide a test command to stop the watchdog petting. | Unit Test
-WD-006 | The `Components::Watchdog` component shall emit an event when the watchdog petting stops. | Unit Test
+Requirement | Description | Verification Method | Verified?
+----------- | ----------- | ------------------- | ---------
+WD-001 | The `Components::Watchdog` component shall activate upon startup. | Inspection | Yes
+WD-002 | The `Components::Watchdog` component shall oscillate the watchdog GPIO pin (24) on/off on each rategroup tick. | Inspection | Yes
+WD-003 | The `Components::Watchdog` component shall provide telemetry for watchdog transition count. | Integration Test | In Progress
+WD-004 | The `Components::Watchdog` component shall respond to stop signals to halt the watchdog petting. | Integration Test | Yes
+WD-005 | The `Components::Watchdog` component shall provide a test command to stop the watchdog petting. | Integration Test | Yes
+WD-006 | The `Components::Watchdog` component shall emit an event when the watchdog petting stops. | Integration Test | Yes
 
 ## 3. Design
 
@@ -52,7 +52,3 @@ WatchdogStop | Emits once the watchdog petting has stopped. .
 Name | Type | Description 
 ---- | ---- | -----
 WatchdogTransitions | U32 | Number of times the GPIO has oscillated from on/off during watchdog petting
-
-## 4. Unit Testing
-
-TODO
