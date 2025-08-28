@@ -25,11 +25,11 @@ def test_01_watchdog_telemetry_basic(fprime_test_api):
 def test_02_watchdog_increments(fprime_test_api):
     """Test that WatchdogTransitions increments over time"""
     import time
-    
+
     initial_value = get_watchdog_transitions(fprime_test_api)
     time.sleep(2.0)  # Wait for watchdog to run more cycles
     updated_value = get_watchdog_transitions(fprime_test_api)
-    
+
     assert updated_value > initial_value, \
         f"WatchdogTransitions should increase. Initial: {initial_value}, Updated: {updated_value}"
 
@@ -37,12 +37,12 @@ def test_02_watchdog_increments(fprime_test_api):
 def test_03_stop_watchdog_command(fprime_test_api):
     """Test TEST_STOP_WATCHDOG command sends and emits WatchdogStop event"""
     fprime_test_api.clear_histories()
-    
+
     fprime_test_api.send_and_assert_command(
-        "ReferenceDeployment.watchdog.TEST_STOP_WATCHDOG", 
+        "ReferenceDeployment.watchdog.TEST_STOP_WATCHDOG",
         max_delay=2
     )
-    
+
     fprime_test_api.assert_event(
         "ReferenceDeployment.watchdog.WatchdogStop",
         timeout=2
@@ -52,13 +52,13 @@ def test_03_stop_watchdog_command(fprime_test_api):
 def test_04_watchdog_stops_incrementing(fprime_test_api):
     """Test that WatchdogTransitions stops incrementing after TEST_STOP_WATCHDOG"""
     import time
-    
+
     # Get initial value (should be from stopped watchdog from previous test)
     initial_value = get_watchdog_transitions(fprime_test_api)
-    
+
     # Wait and check that it's not incrementing (watchdog should already be stopped)
     time.sleep(2.0)
     final_value = get_watchdog_transitions(fprime_test_api)
-    
+
     assert final_value == initial_value, \
         f"Watchdog should remain stopped. Initial: {initial_value}, Final: {final_value}"

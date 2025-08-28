@@ -52,4 +52,3 @@ WatchdogStop | Emits once the watchdog petting has stopped. .
 Name | Type | Description
 ---- | ---- | -----
 WatchdogTransitions | U32 | Number of times the GPIO has oscillated from on/off during watchdog petting
-
