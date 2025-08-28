@@ -36,10 +36,10 @@ module ReferenceDeployment {
     stack size Default.STACK_SIZE \
     priority 4
 
-  instance led: Components.Led base id 0x10003000 \
+  instance prmDb: Svc.PrmDb base id 0x10003000 \
     queue size Default.QUEUE_SIZE \
     stack size Default.STACK_SIZE \
-    priority 5
+    priority 6
 
   # ----------------------------------------------------------------------
   # Queued component instances
@@ -62,4 +62,5 @@ module ReferenceDeployment {
 
   instance gpioDriver: Zephyr.ZephyrGpioDriver base id 0x10015000
 
+  instance watchdog: Components.Watchdog base id 0x10016000
 }

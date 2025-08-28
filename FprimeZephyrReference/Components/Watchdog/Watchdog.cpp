@@ -1,0 +1,54 @@
+// ======================================================================
+// \title  Watchdog.cpp
+// \author moisesmata
+// \brief  cpp file for Watchdog component implementation class
+// ======================================================================
+
+#include "FprimeZephyrReference/Components/Watchdog/Watchdog.hpp"
+#include "config/FpConfig.hpp"
+
+namespace Components {
+
+// ----------------------------------------------------------------------
+// Component construction and destruction
+// ----------------------------------------------------------------------
+
+Watchdog ::Watchdog(const char* const compName) : WatchdogComponentBase(compName) {}
+
+Watchdog ::~Watchdog() {}
+
+// ----------------------------------------------------------------------
+// Handler implementations for user-defined typed input ports
+// ----------------------------------------------------------------------
+
+void Watchdog ::run_handler(FwIndexType portNum, U32 context) {
+    // Only perform actions when stop not requested
+    if (!this->m_stopRequested) {
+        // Toggle state every rate group call
+        this->m_state = (this->m_state == Fw::On::ON) ? Fw::On::OFF : Fw::On::ON;
+        this->m_transitions++;
+        this->tlmWrite_WatchdogTransitions(this->m_transitions);
+
+        this->gpioSet_out(0, (Fw::On::ON == this->m_state) ? Fw::Logic::HIGH : Fw::Logic::LOW);
+    }
+}
+
+void Watchdog ::stop_handler(FwIndexType portNum) {
+    // Set the stop flag to stop watchdog petting
+    this->m_stopRequested = true;
+    this->log_ACTIVITY_HI_WatchdogStop();
+}
+
+// ----------------------------------------------------------------------
+// Handler implementations for commands
+// ----------------------------------------------------------------------
+
+void Watchdog ::TEST_STOP_WATCHDOG_cmdHandler(FwOpcodeType opCode, U32 cmdSeq) {
+    // call stop handler
+    this->stop_handler(0);
+
+    // Provide command response
+    this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
+}
+
+}  // namespace Components
