@@ -2,7 +2,7 @@
 
 ## 1. Introduction
 
-The `Components::Watchdog` component provides the mechanism to "pet" the physical watchdog circuit on the PROVES FC Board and provides a visual indicator by blinking an LED at a fixed interval. The component is driven by a rate group and oscillates the watchdog GPIO every rategroup tick. 
+The `Components::Watchdog` component provides the mechanism to "pet" the physical watchdog circuit on the PROVES FC Board and provides a visual indicator by blinking an LED at a fixed interval. The component is driven by a rate group and oscillates the watchdog GPIO every rategroup tick.
 
 ## 2. Requirements
 
@@ -37,18 +37,19 @@ Port Data Type | Name | Direction | Kind | Usage
 
 #### 3.1.3 Commands
 
-Name | Kind | Description 
+Name | Kind | Description
 ---- | ---- | -----
-TEST_STOP_WATCHDOG | Synchronous | calls the port `stop_runhandler` to stop the watchdog petter. 
+TEST_STOP_WATCHDOG | Synchronous | calls the port `stop_runhandler` to stop the watchdog petter.
 
 #### 3.1.4 Events
 
-Name | Description 
+Name | Description
 ---- | -----
-WatchdogStop | Emits once the watchdog petting has stopped. . 
+WatchdogStop | Emits once the watchdog petting has stopped. .
 
-#### 3.1.5 Telemetry 
+#### 3.1.5 Telemetry
 
-Name | Type | Description 
+Name | Type | Description
 ---- | ---- | -----
 WatchdogTransitions | U32 | Number of times the GPIO has oscillated from on/off during watchdog petting
+
