@@ -15,7 +15,6 @@ submodules: ## Initialize and update git submodules
 export VIRTUAL_ENV ?= $(shell pwd)/fprime-venv
 fprime-venv: ## Create a virtual environment
 		@$(MAKE) uv
-		@$(MAKE) submodules zephyr-setup
 		@echo "Creating virtual environment..."
 		@$(UV) venv fprime-venv
 		@$(UV) pip install --requirement requirements.txt
@@ -52,7 +51,7 @@ generate-if-needed:
 	@test -s $(BUILD_DIR) || $(MAKE) generate
 
 .PHONY: build
-build: fprime-venv generate-if-needed ## Build FPrime-Zephyr Proves Core Reference
+build: submodules zephyr-setup fprime-venv generate-if-needed ## Build FPrime-Zephyr Proves Core Reference
 	@echo "Building..."
 	@$(UV) run fprime-util build
 
