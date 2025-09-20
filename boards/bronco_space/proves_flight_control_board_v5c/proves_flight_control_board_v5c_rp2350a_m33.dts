@@ -19,7 +19,13 @@
 #include "../proves_flight_control_board_v5/proves_flight_control_board_v5.dtsi"
 
 
-lora0: sx1276@0 {
+&spi1 {
+	status = "okay";
+	cs-gpios = <&gpio0 9 GPIO_ACTIVE_LOW>;
+	pinctrl-0 = <&spi1_default>;
+	pinctrl-names = "default";
+
+	lora0: sx1276@0 {
 		compatible = "semtech,sx1276";
 		reg = <0>;
 		spi-max-frequency = <125000>;
@@ -28,3 +34,5 @@ lora0: sx1276@0 {
 		power-amplifier-output = "pa-boost";
 		label = "HOPE_RF";
 	};
+};
+
