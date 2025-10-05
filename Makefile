@@ -46,6 +46,10 @@ generate: submodules fprime-venv zephyr-setup ## Generate FPrime-Zephyr Proves C
 	@echo "Generating FPrime-Zephyr Proves Core Reference..."
 	@$(UV) run fprime-util generate --force
 
+.PHONY: generate-ci
+generate-ci:
+	@$(UV) run fprime-util generate --force
+
 .PHONY: generate-if-needed
 BUILD_DIR ?= $(shell pwd)/build-fprime-automatic-zephyr
 generate-if-needed:
@@ -54,6 +58,10 @@ generate-if-needed:
 .PHONY: build
 build: submodules zephyr-setup fprime-venv generate-if-needed ## Build FPrime-Zephyr Proves Core Reference
 	@echo "Building..."
+	@$(UV) run fprime-util build
+
+.PHONY: build-ci
+build-ci:
 	@$(UV) run fprime-util build
 
 .PHONY: test-integration
@@ -83,6 +91,10 @@ gds: ## Run FPrime GDS
 	@$(UV) run fprime-gds -n --dictionary $(ARTIFACT_DIR)/zephyr/fprime-zephyr-deployment/dict/ReferenceDeploymentTopologyDictionary.json --communication-selection uart --uart-baud 115200 --output-unframed-data
 
 ##@ Build Tools
+
+.PHONY: download-bin
+download-bin: uv
+
 BIN_DIR ?= $(shell pwd)/bin
 $(BIN_DIR):
 	mkdir -p $(BIN_DIR)
