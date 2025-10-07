@@ -65,8 +65,12 @@ build-ci:
 	@$(UV) run fprime-util build
 
 .PHONY: test-integration
-test-integration:
+test-integration: uv
 	@$(UV) run pytest FprimeZephyrReference/test/int --deployment build-artifacts/zephyr/fprime-zephyr-deployment
+
+.PHONY: bootloader
+bootloader: uv
+	@$(UV) run pytest FprimeZephyrReference/test/bootloader_trigger.py --deployment build-artifacts/zephyr/fprime-zephyr-deployment
 
 .PHONY: clean
 clean: ## Remove all gitignored files
@@ -84,11 +88,17 @@ clean-zephyr-sdk: ## Remove Zephyr SDK (reinstall with 'make zephyr-setup')
 
 ##@ Operations
 
-.PHONY: gds
+GDS_COMMAND ?= $(UV) run fprime-gds -n --dictionary $(ARTIFACT_DIR)/zephyr/fprime-zephyr-deployment/dict/ReferenceDeploymentTopologyDictionary.json --communication-selection uart --uart-baud 115200 --output-unframed-data
 ARTIFACT_DIR ?= $(shell pwd)/build-artifacts
+
+.PHONY: gds
 gds: ## Run FPrime GDS
 	@echo "Running FPrime GDS..."
-	@$(UV) run fprime-gds -n --dictionary $(ARTIFACT_DIR)/zephyr/fprime-zephyr-deployment/dict/ReferenceDeploymentTopologyDictionary.json --communication-selection uart --uart-baud 115200 --output-unframed-data
+	@$(GDS_COMMAND)
+
+.PHONY: gds-integration
+gds-integration:
+	@$(GDS_COMMAND) --gui=none
 
 ##@ Build Tools
 
