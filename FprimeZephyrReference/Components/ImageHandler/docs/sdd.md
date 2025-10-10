@@ -16,6 +16,7 @@ Add a class diagram here
 
 ## Port Descriptions
 | Name | Description |
+|---|---|
 |cmdIn|receive commands|
 |cmdResponseOut|replying to commands|
 |sendFile|---|
@@ -33,11 +34,13 @@ Add sequence diagrams here
 
 ## Parameters
 | Name | Description |
+|---|---|
 |midSize|halfsize image|
 |smallSize|smallest size image|
 
 ## Commands
 | Name | Description |
+|---|---|
 |delete|which image to delete|
 |downlink|which image , what size|
 |list|go through all images|
@@ -45,6 +48,7 @@ Add sequence diagrams here
 
 ## Events
 | Name | Description |
+|---|---|
 |ReceivedImage|---|
 |ReceivedDownlink request|---|
 |ProcessImage|---|
@@ -52,6 +56,7 @@ Add sequence diagrams here
 
 ## Telemetry
 | Name | Description |
+|---|---|
 |TotalSize|space being used|
 |NumberOfImagesCurrent|---|
 |TotalImagesTaken|---|
