@@ -56,5 +56,69 @@ module Components {
         @Port to set the value of a parameter
         param set port prmSetOut
 
+        @Port to receive img data
+
+	@Port to send a file
+	output port sendFile: Fw.BufferSend
+
+	@Port to receive a file
+	input port receiveFile: Fw.BufferReceive
+
+	@ Port to receive image from the camera
+	input port imageReceive: Fw.BufferReceive
+
+
+	###############################################################################
+        # Parameters 
+        ###############################################################################        
+
+	@Halfsize image
+	param midSize: U32
+
+	@Smallest image
+	param smallSize: U32
+
+	###############################################################################
+        # Commands
+        ###############################################################################
+	
+	@Delete specified image
+	async command delete(imageId: U32)
+
+	@Downlink an image
+	async command downlink(imageId: U32, imageSize: U8)
+
+	@List all images
+	async command list()
+
+	###############################################################################
+        # Events
+        ###############################################################################
+
+	@Image received
+	event ReceivedImage() severity activity high format "Image received"
+
+	@Downlink request received
+	event ReceivedDownlinkRequest() severity activity high format "Downlink request received"
+
+	@Processed Image
+	event ProcessImage() severity activity high format "Processing image"
+
+	@Confirm Image deletion status
+	event Confirmation(status: U32) severity avtivity high format "Image confirmation with status {}"
+
+        ###############################################################################
+        # Telemetry
+        ###############################################################################
+	
+	@Total space used
+	temetry TotalSize: U32
+
+	@Number of images currently stored
+	telemetry NumberOfCurrentImages: U32
+
+	@Total number of images taken
+	telemetry TotalImagesTaken: U32
+
     }
 }
