@@ -26,13 +26,38 @@ class ImageHandler final : public ImageHandlerComponentBase {
 
   private:
     // ----------------------------------------------------------------------
+    // Handler implementations for typed input ports
+    // ----------------------------------------------------------------------
+
+    //! Handler implementation for ImageRec
+    void ImageRec_handler(FwIndexType portNum,  //!< The port number
+                          Fw::Buffer& fwBuffer  //!< The buffer
+                          ) override;
+
+  private:
+    // ----------------------------------------------------------------------
     // Handler implementations for commands
     // ----------------------------------------------------------------------
 
-    //! Handler implementation for command TODO
+    //! Handler implementation for command delete
     //!
-    //! TODO
-    void TODO_cmdHandler(FwOpcodeType opCode,  //!< The opcode
+    //! Delete specified image
+    void delete_cmdHandler(FwOpcodeType opCode,  //!< The opcode
+                           U32 cmdSeq,           //!< The command sequence number
+                           U32 imageId) override;
+
+    //! Handler implementation for command downlink
+    //!
+    //! Downlink an image
+    void downlink_cmdHandler(FwOpcodeType opCode,  //!< The opcode
+                             U32 cmdSeq,           //!< The command sequence number
+                             U32 imageId,
+                             U8 imageSize) override;
+
+    //! Handler implementation for command list
+    //!
+    //! List all images
+    void list_cmdHandler(FwOpcodeType opCode,  //!< The opcode
                          U32 cmdSeq            //!< The command sequence number
                          ) override;
 };
