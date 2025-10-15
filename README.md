@@ -1,6 +1,6 @@
-# Proves Core Reference Project
+# LionCub Flight Software
 
-This is a reference software implementation for the [Proves Kit](https://docs.proveskit.space/en/latest/).
+This is based on the [Proves Kit](https://docs.proveskit.space/en/latest/).
 
 ## System Requirements
 - F Prime System Requirements listed [here](https://fprime.jpl.nasa.gov/latest/docs/getting-started/installing-fprime/#system-requirements)
@@ -11,19 +11,22 @@ This is a reference software implementation for the [Proves Kit](https://docs.pr
 First, clone the Proves Core Reference repository.
 
 ```shell
-git clone https://github.com/Open-Source-Space-Foundation/proves-core-reference
+git clone https://github.com/columbiaspace/lioncub-fsw
 ```
 
-Next, navigate to the `proves-core-reference` directory and run `make` to set up the project.
+> [!Note]
+> Before proceeding to the next step, you need to have the following dependencies installed: `cmake ninja gperf python3 python-tk ccache qemu dtc libmagic wget openocd`. If you are on macOS, you can install these using the following command: `brew install cmake ninja gperf python3 python-tk ccache qemu dtc libmagic wget openocd`.
+
+Next, navigate to the `lioncub-fsw` directory and run `make` to set up the project.
 
 ```shell
-cd proves-core-reference
+cd lioncub-fsw
 make
 ```
 
 ## Running the code
 
-Run generate from the `proves-core-reference` directory. This generates the build cache for FPrime. You only need to do generate if something in the core FPrime package has changed
+Run generate from the `lioncub-fsw` directory. This generates the build cache for FPrime. You only need to do generate if something in the core FPrime package has changed
 ```shell
 make generate
 ```
