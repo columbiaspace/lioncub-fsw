@@ -23,6 +23,8 @@ register_fprime_library(
 #       MyPackage_MyOtherModule
 )
 
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/Types/")
+
 ### Unit Tests ###
 # register_fprime_ut(
 #     AUTOCODER_INPUTS

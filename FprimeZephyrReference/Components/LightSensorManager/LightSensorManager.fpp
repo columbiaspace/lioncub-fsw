@@ -1,4 +1,4 @@
-module Components {
+module LightSensor {
     @ Component that delivers data from the VEML 6031 using the zephyr driver
     passive component LightSensorManager {
 
