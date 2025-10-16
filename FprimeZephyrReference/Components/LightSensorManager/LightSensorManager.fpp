@@ -13,8 +13,8 @@ module Components {
         # @ Example async command
         # async command COMMAND_NAME(param_name: U32)
 
-        # @ Example telemetry counter
-        # telemetry ExampleCounter: U64
+        @ Light sensor data telemetry
+        telemetry Reading: LightSensorData
 
         # @ Example event
         # event ExampleStateEvent(example_state: Fw.On) severity activity high id 0 format "State set to {}"
