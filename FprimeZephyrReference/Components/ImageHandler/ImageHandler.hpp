@@ -1,6 +1,6 @@
 // ======================================================================
 // \title  ImageHandler.hpp
-// \author wisaac
+// \author rohan
 // \brief  hpp file for ImageHandler component implementation class
 // ======================================================================
 
@@ -28,11 +28,13 @@ class ImageHandler final : public ImageHandlerComponentBase {
     // ----------------------------------------------------------------------
     // Handler implementations for typed input ports
     // ----------------------------------------------------------------------
+    U32 m_nextImageId = 0; //!< Next image ID to assign
+    static constexpr const char* IMAGE_DIR = "/data/images";
 
     //! Handler implementation for ImageRec
     void ImageRec_handler(FwIndexType portNum,  //!< The port number
                           Fw::Buffer& fwBuffer  //!< The buffer
-                          ) override;
+                          ) ;
 
   private:
     // ----------------------------------------------------------------------

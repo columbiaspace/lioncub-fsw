@@ -73,10 +73,13 @@ module Components {
         @ Port to return the value of a parameter
         param get port prmGetOut
 
-        @Port to set the value of a parameter
+        @ Port to set the value of a parameter
         param set port prmSetOut
 
-        sync input port ImageRec: Fw.BufferSend
+        @ Port to receive images
+        sync input port imageReceive: Fw.BufferSend
 
+        # @ Port to send files
+        # output port sendFile: Svc.SendFile
     }
 }
