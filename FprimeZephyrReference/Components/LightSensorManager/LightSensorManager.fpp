@@ -14,6 +14,25 @@ module Components {
 
         # @ Example event
         # event ExampleStateEvent(example_state: Fw.On) severity activity high id 0 format "State set to {}"
+        
+        # Event to report if light is detected
+        event LightDetected(
+            lux : I32 @<Measured Light Level in Lux>
+        ) severity activity high format "Light detected: {} lux";
+
+        # Event to report if light sensor is turned on
+        event LightSensorTurnedOn() severity activity high format "Light sensor turned on";
+
+        # Event to report if light sensor is turned off
+        event LightSensorTurnedOff() severity activity high format "Light sensor turned off";
+
+        # Event to report if light sensor reset
+        event LightSensorReset() severity activity high format "Light sensor reset";
+
+        # Event to report if light sensor entered to error state
+        event LightSensorError(
+            error_msg: string size 40 @<Error message to output>
+        ) severity warning high format "Light sensor error: {}";
 
         # @ Example port: receiving calls from the rate group
         # sync input port run: Svc.Sched
