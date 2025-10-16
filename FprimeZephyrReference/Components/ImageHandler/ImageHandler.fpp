@@ -77,9 +77,6 @@ module Components {
         param set port prmSetOut
 
         @ Port to receive images
-        sync input port imageReceive: Fw.BufferSend
-
-        # @ Port to send files
-        # output port sendFile: Svc.SendFile
+        sync input port ImageRec: Fw.BufferSend
     }
 }
