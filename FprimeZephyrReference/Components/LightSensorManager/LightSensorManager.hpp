@@ -1,6 +1,6 @@
 // ======================================================================
 // \title  LightSensorManager.hpp
-// \author alan
+// \author adriano
 // \brief  hpp file for LightSensorManager component implementation class
 // ======================================================================
 
@@ -11,26 +11,30 @@
 
 namespace Components {
 
-  class LightSensorManager final :
-    public LightSensorManagerComponentBase
-  {
+class LightSensorManager final : public LightSensorManagerComponentBase {
+  public:
+    // ----------------------------------------------------------------------
+    // Component construction and destruction
+    // ----------------------------------------------------------------------
 
-    public:
+    //! Construct LightSensorManager object
+    LightSensorManager(const char* const compName  //!< The component name
+    );
 
-      // ----------------------------------------------------------------------
-      // Component construction and destruction
-      // ----------------------------------------------------------------------
+    //! Destroy LightSensorManager object
+    ~LightSensorManager();
 
-      //! Construct LightSensorManager object
-      LightSensorManager(
-          const char* const compName //!< The component name
-      );
+  private:
+    // ----------------------------------------------------------------------
+    // Handler implementations for commands
+    // ----------------------------------------------------------------------
 
-      //! Destroy LightSensorManager object
-      ~LightSensorManager();
+    //! Handler implementation for command RESET
+    void RESET_cmdHandler(FwOpcodeType opCode,  //!< The opcode
+                          U32 cmdSeq            //!< The command sequence number
+                          ) override;
+};
 
-  };
-
-}
+}  // namespace Components
 
 #endif
