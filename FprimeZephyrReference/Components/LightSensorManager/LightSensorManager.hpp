@@ -33,6 +33,9 @@ class LightSensorManager final : public LightSensorManagerComponentBase {
     void RESET_cmdHandler(FwOpcodeType opCode,  //!< The opcode
                           U32 cmdSeq            //!< The command sequence number
                           ) override;
+
+
+    Fw::On m_state = Fw::On::OFF; //! Keeps track if sensor is on or off
 };
 
 }  // namespace Components

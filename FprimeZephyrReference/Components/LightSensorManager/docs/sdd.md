@@ -20,10 +20,10 @@ Add a class diagram here
 |---|---|
 
 ## Component States
-Add component states in the chart below
-| Name | Description |
-|---|---|
-|---|---|
+| Name | Description       |
+|------|-------------------|
+| OFF  | The sensor is off |
+| ON   | The sensor is on  |
 
 ## Sequence Diagrams
 Add sequence diagrams here
@@ -44,9 +44,9 @@ Add sequence diagrams here
 |---|---|
 
 ## Telemetry
-| Name | Description |
-|---|---|
-|---|---|
+| Name    | Description                                                    |
+|---------|----------------------------------------------------------------|
+| Reading | VEML6031 sensor data containing ALS and IR sensor values (raw) |
 
 ## Unit Tests
 Add unit test descriptions in the chart below
