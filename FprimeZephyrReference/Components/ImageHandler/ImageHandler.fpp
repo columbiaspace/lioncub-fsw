@@ -13,18 +13,17 @@ module Components {
         @List all images
         async command list()
 
-        @Failed to open dir
-        event OpenDirError severity warning high format "Deirectory failed to open"
-        
-        @Failed to open file
-        event FileOpenError severity warning high format "File failed to open"
+       # Big-enough string types for paths/reasons
+        type PathStr   = string size 256
 
-        @Failed to write to file
-        event FileWriteError severity warning high format "File failed to write"
+        @ Failed to open dir
+        event OpenDirError(dir: PathStr) severity warning high format "Failed to open dir '{}'"
 
-        @List entry for ls
-        event ListImage() severity activity high format "File failed to write"
+        @ Failed to open file
+        event FileOpenError(path: PathStr) severity warning high format "Failed to open file '{}'"
 
+        @ Failed to write to file
+        event FileWriteError(path: PathStr) severity warning high format "Failed to write '{}'"
         @Image received
         event ReceivedImage() severity activity high format "Image received"
 

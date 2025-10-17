@@ -32,14 +32,15 @@ void ImageHandler ::ImageRec_handler(FwIndexType portNum, Fw::Buffer& fwBuffer) 
 
     snprintf(image_path, sizeof(image_path), "%s/img_%u.bin", IMAGE_DIR, imageId); //may not want to save as a bin, and this may change with pathing things.
     Os::File file;
+    Fw::String fp_string = image_path;
     if(file.open(image_path, Os::File::OPEN_WRITE) != Os::File::OP_OK) {
-        this->log_WARNING_HI_FileOpenError(image_path);
+        this->log_WARNING_HI_FileOpenError(fp_string);
         return;
     }
     // Save the raw buffer to the "full" size file
     FwSizeType size = fwBuffer.getSize();
     if(file.write(fwBuffer.getData(), size) != Os::File::OP_OK) {
-        this->log_WARNING_HI_FileWriteError(image_path);
+        this->log_WARNING_HI_FileWriteError(fp_string);
         return;
     }
     
@@ -69,13 +70,13 @@ void ImageHandler ::downlink_cmdHandler(FwOpcodeType opCode, U32 cmdSeq, U32 ima
 void ImageHandler ::list_cmdHandler(FwOpcodeType opCode, U32 cmdSeq) {
     
     Os::Directory directory;
-    if(directory.open(IMAGE_DIR, Os::Directory::READ) != Os::Directory::OP_OK) {
+    if(directory.open(IMAGE_DIR.toChar(), Os::Directory::READ) != Os::Directory::OP_OK) {
         this->log_WARNING_HI_OpenDirError(IMAGE_DIR);
         return;
     }
     
     Os::File file;
-    if(file.open(IMAGE_LIST, Os::File::OPEN_WRITE) != Os::File::OP_OK) {
+    if(file.open(IMAGE_LIST.toChar(), Os::File::OPEN_WRITE) != Os::File::OP_OK) {
         this->log_WARNING_HI_FileOpenError(IMAGE_LIST);
         return;
     }
@@ -86,7 +87,7 @@ void ImageHandler ::list_cmdHandler(FwOpcodeType opCode, U32 cmdSeq) {
     while(directory.read(filePath) == Os::Directory::OP_OK) {
         const char* s = filePath.toChar();
         if(file.write((unsigned char *) s, size) != Os::File::OP_OK) {
-            this->log_WARNING_HI_FileWriteError(image_path);
+            this->log_WARNING_HI_FileWriteError(IMAGE_LIST);
             return;
         }
         
