@@ -13,7 +13,17 @@ module Components {
         @List all images
         async command list()
 
+        @Failed to open dir
+        event OpenDirError severity warning high format "Deirectory failed to open"
+        
+        @Failed to open file
+        event FileOpenError severity warning high format "File failed to open"
 
+        @Failed to write to file
+        event FileWriteError severity warning high format "File failed to write"
+
+        @List entry for ls
+        event ListImage() severity activity high format "File failed to write"
 
         @Image received
         event ReceivedImage() severity activity high format "Image received"

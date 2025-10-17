@@ -30,7 +30,7 @@ class ImageHandler final : public ImageHandlerComponentBase {
     // ----------------------------------------------------------------------
     U32 m_nextImageId = 0; //!< Next image ID to assign
     static constexpr const char* IMAGE_DIR = "/data/images";
-
+    static constexpr const char* IMAGE_LIST = "/data/imagelist";
     //! Handler implementation for ImageRec
     void ImageRec_handler(FwIndexType portNum,  //!< The port number
                           Fw::Buffer& fwBuffer  //!< The buffer

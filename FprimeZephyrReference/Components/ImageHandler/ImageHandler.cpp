@@ -26,7 +26,6 @@ ImageHandler ::~ImageHandler() {}
 
 void ImageHandler ::ImageRec_handler(FwIndexType portNum, Fw::Buffer& fwBuffer) {
     this->log_ACTIVITY_HI_ReceivedImage();
-    
     // Generate a unique ID and filenames for the new image
     U32 imageId = m_nextImageId++;
     char image_path[256];
@@ -34,13 +33,13 @@ void ImageHandler ::ImageRec_handler(FwIndexType portNum, Fw::Buffer& fwBuffer) 
     snprintf(image_path, sizeof(image_path), "%s/img_%u.bin", IMAGE_DIR, imageId); //may not want to save as a bin, and this may change with pathing things.
     Os::File file;
     if(file.open(image_path, Os::File::OPEN_WRITE) != Os::File::OP_OK) {
-        //this->log_WARNING_HI_FileOpenError(image_path);
+        this->log_WARNING_HI_FileOpenError(image_path);
         return;
     }
     // Save the raw buffer to the "full" size file
     FwSizeType size = fwBuffer.getSize();
     if(file.write(fwBuffer.getData(), size) != Os::File::OP_OK) {
-        //this->log_WARNING_HI_FileWriteError(image_path);
+        this->log_WARNING_HI_FileWriteError(image_path);
         return;
     }
     
@@ -71,19 +70,29 @@ void ImageHandler ::list_cmdHandler(FwOpcodeType opCode, U32 cmdSeq) {
     
     Os::Directory directory;
     if(directory.open(IMAGE_DIR, Os::Directory::READ) != Os::Directory::OP_OK) {
-        // this->log_WARNING_HI_DirectoryOpenError(IMAGE_DIR);
+        this->log_WARNING_HI_OpenDirError(IMAGE_DIR);
         return;
     }
-    int i = 0;
-    char image_name[256];
-    while(directory.read(image_name, 250) == Os::Directory::OP_OK) {
-        char entry_info[256];
-        snprintf(entry_info, sizeof(entry_info), "%d %s", i, image_name);
-        // this->log_ACTIVITY_HI_ListImage(entry_info);
-        i++;
+    
+    Os::File file;
+    if(file.open(IMAGE_LIST, Os::File::OPEN_WRITE) != Os::File::OP_OK) {
+        this->log_WARNING_HI_FileOpenError(IMAGE_LIST);
+        return;
+    }
+    // Save the raw buffer to the "full" size file
+    Fw::String filePath = "";
+    FwSizeType size = 250;
+    
+    while(directory.read(filePath) == Os::Directory::OP_OK) {
+        const char* s = filePath.toChar();
+        if(file.write((unsigned char *) s, size) != Os::File::OP_OK) {
+            this->log_WARNING_HI_FileWriteError(image_path);
+            return;
+        }
+        
     }
     directory.close();
-    this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
-    }
-
+    file.close();
+    //Downlinke the thing
+}
 }  // namespace Components
