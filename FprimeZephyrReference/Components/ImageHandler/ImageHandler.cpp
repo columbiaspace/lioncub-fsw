@@ -63,7 +63,24 @@ void ImageHandler ::delete_cmdHandler(FwOpcodeType opCode, U32 cmdSeq, U32 image
 }
 
 void ImageHandler ::downlink_cmdHandler(FwOpcodeType opCode, U32 cmdSeq, U32 imageId, U8 imageSize) {
-    // TODO
+    this->log_ACTIVITY_HI_ReceivedDownlinkRequest();
+    
+    // Generate source and destination filenames
+    char sourceFileName[100];
+    char destFileName[100];
+    
+    snprintf(sourceFileName, sizeof(sourceFileName), "%s/img_%u.bin", IMAGE_DIR, imageId);
+    snprintf(destFileName, sizeof(destFileName), "img_%u.bin", imageId);
+    
+    // Create file downlink request
+    Fw::String sourceFile(sourceFileName);
+    Fw::String destFile(destFileName);
+    U32 offset = 0;  // Start from beginning of file
+    U32 length = 0;  // 0 means read until end of file
+    
+    // Send the file downlink request
+    this->fileDownlink_out(0, sourceFile, destFile, offset, length);
+
     this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
 }
 

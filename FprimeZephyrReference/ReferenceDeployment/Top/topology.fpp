@@ -16,6 +16,7 @@ module ReferenceDeployment {
   # ----------------------------------------------------------------------
     import CdhCore.Subtopology
     import ComCcsds.Subtopology
+    import FileHandling.Subtopology
 
   # ----------------------------------------------------------------------
   # Instances used in the topology
@@ -32,7 +33,7 @@ module ReferenceDeployment {
     instance imuManager
     instance lis2mdlManager
     instance lsm6dsoManager
-
+    instance imageHandler
   # ----------------------------------------------------------------------
   # Pattern graph specifiers
   # ----------------------------------------------------------------------
@@ -107,6 +108,18 @@ module ReferenceDeployment {
       imuManager.angularVelocityGet -> lsm6dsoManager.angularVelocityGet
       imuManager.magneticFieldGet -> lis2mdlManager.magneticFieldGet
       imuManager.temperatureGet -> lsm6dsoManager.temperatureGet
+    }
+
+    connections FileHandling_ComCcsds {
+      # FileHandling.fileDownlink.bufferSendOut -> ComCcsds.comQueue.bufferQueueIn[ComCcsds.Ports_ComBufferQueue.FILE]
+      # ComCcsds.comQueue.bufferReturnOut[ComCcsds.Ports_ComBufferQueue.FILE] -> FileHandling.fileDownlink.bufferReturn
+
+      # ComCcsds.fprimeRouter.fileOut -> FileHandling.fileUplink.bufferSendIn
+      # FileHandling.fileUplink.bufferSendOut -> ComCcsds.fprimeRouter.fileBufferReturnIn
+    }
+
+    connections ImageHandler_FileHandling {
+      imageHandler.fileDownlink -> FileHandling.fileDownlink.SendFile
     }
 
     connections ReferenceDeployment {

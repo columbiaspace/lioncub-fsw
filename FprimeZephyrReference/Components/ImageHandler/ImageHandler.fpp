@@ -87,5 +87,8 @@ module Components {
 
         @ Port to receive images
         sync input port ImageRec: Fw.BufferSend
+
+        @ Port to request file downlink
+        output port fileDownlink: Svc.SendFileRequest
     }
 }
