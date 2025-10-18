@@ -32,7 +32,10 @@ Add sequence diagrams here
 ## Parameters
 | Name | Description |
 |---|---|
-|---|---|
+|GAIN|Controls the sensor’s sensitivity to light|
+|INTEGRATION_TIME|Determines how long the sensor collects line for before taking a measurement|
+|DET_THRESHOLD|Threshold to decide if light is detected|
+|READ_INTERVAL|How many rate group ticks it takes to read the light sensor once|
 
 ## Commands
 | Name  | Description             |
