@@ -30,7 +30,7 @@ module LightSensor {
             error_msg: string size 40 @<Error message to output>
         ) severity warning high format "Light sensor error: {}";
 
-        @ Sensor's sensitivity to light
+        @ Sensitivity to light
         param GAIN: U32
 
         @ How long the sensor reads before taking a measurement
