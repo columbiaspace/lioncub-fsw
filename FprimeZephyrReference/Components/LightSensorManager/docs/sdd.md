@@ -16,6 +16,7 @@ Add a class diagram here
 
 ## Port Descriptions
 | Name       | Description                                                                     |
+|------------|---------------------------------------------------------------------------------|
 | loadSwitch | Input port for receiving signal from load switch to activate the light sensor   |
 | run        | Input port for receiving ticks from rate group to read sensor data periodically |
 
@@ -35,6 +36,7 @@ Add sequence diagrams here
 
 ## Commands
 | Name  | Description             |
+|-------|-------------------------|
 | RESET | Turns sensor off and on |
 
 ## Events
