@@ -39,6 +39,7 @@ Add sequence diagrams here
 
 ## Events
 | Name                 | Description                                          |
+|----------------------|------------------------------------------------------|
 | LightDetected        | Emitted when light is detected                       |
 | LightSensorTurnedOn  | Emitted when light sensor is turned on               |
 | LightSensorReset     | Emitted when light sensor resets                     |
@@ -60,11 +61,12 @@ Add unit test descriptions in the chart below
 ## Requirements
 Add requirements in the chart below
 | Name | Description | Validation |
-|VEML6031-001|The LightSensorManager shall emit ALS (ambient light sensor) and IR (infrared) sensor values in units of lx (lux)|Unit-Test|
-|VEML6031-002|The LightSensorManager shall communicate with the VEML6031 using its Zephyr driver|Unit-Test|
-|VEML6031-003|The LightSensorManager shall validate lux readings|Unit-Test|
-|VEML6031-004|The LightSensorManager shall report if light is detected above a provided threshold|Unit-Test|
-|VEML6031-005|The LightSensorManager shall reset|Unit-Test|
+|------|-------------|-------------|
+| VEML6031-001 | The LightSensorManager shall emit ALS (ambient light sensor) and IR (infrared) sensor values in units of lx (lux) | Unit-Test |
+| VEML6031-002 | The LightSensorManager shall communicate with the VEML6031 using its Zephyr driver | Unit-Test |
+| VEML6031-003 | The LightSensorManager shall validate lux readings | Unit-Test |
+| VEML6031-004 | The LightSensorManager shall report if light is detected above a provided threshold | Unit-Test |
+| VEML6031-005 | The LightSensorManager shall reset | Unit-Test |
 
 ## Change Log
 | Date | Description |
