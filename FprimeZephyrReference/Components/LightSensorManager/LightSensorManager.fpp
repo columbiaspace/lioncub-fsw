@@ -1,48 +1,52 @@
 module LightSensor {
-    @ Component that delivers data from the VEML 6031 using the zephyr driver
+    @ Component to deliver data from the VEML 6031 light sensor using the Zephyr driver
     passive component LightSensorManager {
 
-        ##############################################################################
-        #### Uncomment the following examples to start customizing your component ####
-        ##############################################################################
-        
+        @ Command to turn the light sensor off and on
         sync command RESET
 
-
-
-        # @ Example async command
-        # async command COMMAND_NAME(param_name: U32)
-
-        @ Light sensor data telemetry
+        @ Telemetry channel to report light sensor reading
         telemetry Reading: LightSensorData
 
-        # @ Example event
-        # event ExampleStateEvent(example_state: Fw.On) severity activity high id 0 format "State set to {}"
-        
-        # Event to report if light is detected
+        @ Telemetry channel to report whether reading is valid
+        telemetry Valid: bool
+
+        @ Event to report if light is detected
         event LightDetected(
             lux : I32 @<Measured Light Level in Lux>
         ) severity activity high format "Light detected: {} lux";
 
-        # Event to report if light sensor is turned on
+        @ Event to report if light sensor is turned on
         event LightSensorTurnedOn() severity activity high format "Light sensor turned on";
 
-        # Event to report if light sensor is turned off
+        @ Event to report if light sensor is turned off
         event LightSensorTurnedOff() severity activity high format "Light sensor turned off";
 
-        # Event to report if light sensor reset
+        @ Event to report if light sensor reset
         event LightSensorReset() severity activity high format "Light sensor reset";
 
-        # Event to report if light sensor entered to error state
+        @ Event to report if light sensor entered to error state
         event LightSensorError(
             error_msg: string size 40 @<Error message to output>
         ) severity warning high format "Light sensor error: {}";
 
-        # @ Example port: receiving calls from the rate group
-        # sync input port run: Svc.Sched
+        @ Sensor's sensitivity to light
+        param GAIN: U32
 
-        # @ Example parameter
-        # param PARAMETER_NAME: U32
+        @ How long the sensor reads before taking a measurement
+        param INTEGRATION_TIME: U32
+
+        @ Threshold to determine if light is detected
+        param DET_THRESHOLD: U32
+
+        @ Reading light sensor every x rate group ticks
+        param READ_INTERVAL: U32 default 1
+
+        @ Port for receiving call from load switch
+        async input port loadSwitch: Drv.GpioRead
+
+        @ Port receiving calls from the rate group
+        sync input port run: Svc.Sched
 
         ###############################################################################
         # Standard AC Ports: Required for Channels, Events, Commands, and Parameters  #
