@@ -75,4 +75,10 @@ module ReferenceDeployment {
   instance prmDb: Components.NullPrmDb base id 0x10024000
 
   instance comDelay: Components.ComDelay base id 0x10025000
+
+  instance lora: Zephyr.LoRa base id 0x10026000
+
+  instance comSplitterEvents: Svc.ComSplitter base id 0x10027000
+
+  instance comSplitterTelemetry: Svc.ComSplitter base id 0x10028000
 }
